@@ -7,6 +7,32 @@ import 'dotenv/config';
 const SECRET = process.env.SECRET;
 const routes = express.Router();
 
+routes.get("/", (req, res, error) => {
+  const { email, senha } = req.body;
+
+  const sql = "SELECT * FROM usuario WHERE usuario.email=?";
+  pool.query(sql, [email], (error, results, fields) => {
+    if (results.length > 0) {
+      if (
+        email === results[0].email &&
+        bcrypt.compareSync(senha, results[0].senha)
+      ) {
+
+        const token = jwt.sign({name: email}, SECRET, {expiresIn: 7200})     
+        
+        res.status(200).json({
+          messagem: "Login realizado com sucesso!",
+          id: results[0].id,
+          token
+        })
+      } else {
+        res.send(401).end();
+      }
+    }
+  });
+});
+
+
 routes.post("/cadastro", (req, res, error) => {
   const sql =
     "INSERT INTO usuario(nome, email, telefone, senha)VALUES(?,?,?,?)";
@@ -25,26 +51,6 @@ routes.post("/cadastro", (req, res, error) => {
   );
 });
 
-routes.get("/", (req, res, error) => {
-  const { email, senha } = req.body;
-
-  const sql = "SELECT * FROM usuario WHERE usuario.email=?";
-  pool.query(sql, [email], (error, results, fields) => {
-    if (results.length > 0) {
-      if (
-        email === results[0].email &&
-        bcrypt.compareSync(senha, results[0].senha)
-      ) {
-        const token = jwt.sign({name: email}, SECRET)
-        res.status(200).json({ login: true }, token).end();
-      } else {
-        res.send(401).end();
-      }
-    }
-  });
-
-  
-});
 
 routes.put("/:email", (req, res, error) => {
   const sql ="UPDATE usuario SET `nome` = ?, `email` = ?, `telefone` = ?, `senha` = ? WHERE `email` = ?";
