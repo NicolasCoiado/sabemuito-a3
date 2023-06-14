@@ -32,7 +32,6 @@ routes.get("/", (req, res, error) => {
   });
 });
 
-
 routes.post("/cadastro", (req, res, error) => {
   const sql =
     "INSERT INTO usuario(nome, email, telefone, senha)VALUES(?,?,?,?)";
@@ -51,7 +50,6 @@ routes.post("/cadastro", (req, res, error) => {
   );
 });
 
-
 routes.put("/:email", (req, res, error) => {
   const sql ="UPDATE usuario SET `nome` = ?, `email` = ?, `telefone` = ?, `senha` = ? WHERE `email` = ?";
 
@@ -69,8 +67,6 @@ routes.put("/:email", (req, res, error) => {
     }
   );
 });
-
-
   
 routes.delete("/:email", (req, res) => {
   const sql = "DELETE FROM usuario WHERE `email` = ?";
