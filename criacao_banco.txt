@@ -1,0 +1,52 @@
+create database sabemuito;
+
+use sabemuito;
+
+create table usuario (
+	id int NOT NULL AUTO_INCREMENT,
+    nome varchar (255) NOT NULL,
+    email varchar (255) NOT NULL,
+    telefone varchar (15),
+    senha varchar(30) NOT NULL,
+    PRIMARY KEY (id)
+);
+
+create table lista_estudos (
+	id_lista int NOT NULL AUTO_INCREMENT,
+    titulo_lista varchar(50) NOT NULL,
+    descricao_lista varchar(255),
+    id_usuario int NOT NULL,
+    FOREIGN KEY (id_usuario) REFERENCES usuario(id),
+    PRIMARY KEY (id_lista)
+);
+
+create table topico (
+	id_topico int NOT NULL AUTO_INCREMENT,
+	nome_topico varchar(50) NOT NULL,
+    status_topico int DEFAULT 1 NOT NULL,
+    id_lista int NOT NULL,
+    FOREIGN KEY (id_lista) REFERENCES lista_estudos(id_lista),
+    PRIMARY KEY (id_topico)
+);
+
+create table provas (
+	id_prova int NOT NULL AUTO_INCREMENT,
+    titulo_prova varchar(50) NOT NULL,
+    temas_prova varchar(255),
+    descricao_prova varchar(255),
+    data_prova date,
+    id_usuario int NOT NULL,
+    FOREIGN KEY (id_usuario) REFERENCES usuario(id),
+    PRIMARY KEY (id_prova)
+);
+
+create table trabalhos (
+	id_trabalho int NOT NULL AUTO_INCREMENT,
+    titulo_trabalho varchar(50) NOT NULL,
+    temas_trabalho varchar(255),
+    descricao_trabalho varchar(255),
+    data_entrega date,
+    id_usuario int NOT NULL,
+    FOREIGN KEY (id_usuario) REFERENCES usuario(id),
+    PRIMARY KEY (id_trabalho)
+);

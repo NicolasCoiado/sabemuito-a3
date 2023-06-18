@@ -1,0 +1,8 @@
+//Altere o nome deste arquivo para ".env".
+SECRET= "" //Coloque aqui sua chave secreta.
+PORT = "" //Coloque aqui a porta que deseja utilizar.
+
+DB_HOST = "" //Coloque aqui o host que deseja utilizar.
+DB_USER = "" //Coloque aqui o usuário do banco de dados que deseja utilizar.
+DB_PASSWORD = "" //Coloque a senha do usuário do banco de dados que deseja utilizar.
+DB_DATABASE = "" //Coloque aqui o banco de dados que deseja utilizar.

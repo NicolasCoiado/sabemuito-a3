@@ -58,7 +58,7 @@ routes.put("/prova/:id_usuario/:id_prova", verificaJWT, (req, res, error) => {
       sql, [req.params.id_usuario, req.params.id_prova], (err) => {
         if (err) return res.json(err);
   
-        return res.status(200).json("Usuário deletado com sucesso.");
+        return res.status(200).json("Prova deletada com sucesso.");
     });
   });
 export default routes;
